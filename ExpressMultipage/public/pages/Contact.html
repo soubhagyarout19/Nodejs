@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <nav class="main">
+        <div class="logo">
+             <h1>LOGO</h1>
+        </div>
+        <div class="links">
+            <a href="../index.html">Home</a>
+            <a href="../pages/About.html">About</a>
+            <a href="../pages/Contact.html">Contact</a>
+         <a href="/login">Login</a>
+        </div> 
+     </nav>
+    <h1>This is Contact Page</h1>
+    <form action="" id="form">
+        <div>
+            <label for="">Name:</label>
+            <input type="text" name="uname" id="">
+        </div>
+        <div>
+            <label for="">Email:</label>
+            <input type="email" name="email" id="">
+        </div>
+        <div>
+            <label for="">REVIEW:</label>
+            <textarea name="review" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div>   
+            <button>SUBMIT</button>
+        </div>
+    </form>
+
+    <script>
+
+        let form = document.getElementById("form");
+        let userReview = {}
+        form.addEventListener("input",()=>{
+            let value = event.target.value;
+            let name = event.target.name;
+            userReview[name] = value;
+            console.log(userReview);
+        })
+        form.addEventListener("submit",(event)=>{ 
+            event.preventDefault();
+            let res = fetch("/student",{
+                method: "POST",
+                headers: {"Content-type":"application/json"},
+                body: JSON.stringify(userReview)
+            }).then((data)=>data.json()).then((data)=>alert(`${userReview.uname} Your review posted with ${data.char} letters and ${data.words} words.`))
+            form.reset();
+        })
+    </script>
+</body>
+</html>
