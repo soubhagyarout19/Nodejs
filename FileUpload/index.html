@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>Jai Shree Ram🚩</h1>
+    <h1>Uploading in Local disk</h1>
+    <input type="file" name="myFile" id="file">
+    <button id="post">Click to post</button>
+    <div id="render">
+        
+    </div>
+    <script>
+        let file = document.getElementById("file");
+        let postBtn = document.getElementById("post");
+        let formData;
+        let render = document.getElementById("render");
+
+        file.addEventListener("change",(event)=> {
+            console.log(event.target.files[0]);
+            formData = new FormData()
+            formData.append("image", event.target.files[0]);
+            // formData.image = event.target.files[0];
+
+        })
+        postBtn.addEventListener("click",()=>{
+            fetch("/upload",{
+                method: "POST",
+                body: formData
+            })
+            let imgElement = document.createElement("img");
+            render.appendChild(formData)
+        })
+    </script>
+</body>
+</html>
